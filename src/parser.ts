@@ -26,7 +26,7 @@ export class Parser {
   parse(code: string): (Program | Function)[] {
     const program = acorn.parse(code, {
       ecmaVersion: 5
-    }) as Node;
+    }) as unknown as Node;
 
     let blocks: (Program | Function)[] = [];
 
