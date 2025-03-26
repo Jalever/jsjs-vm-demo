@@ -1,4 +1,21 @@
 {
+  "name": "jsjs-vm-demo",
+  "version": "1.0.0",
+  "description": "一个JavaScript虚拟机演示项目，将JavaScript代码编译后嵌入到图片中",
+  "main": "dist/src/index.js",
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/jsjs-vm-demo.git"
+  },
+  "keywords": [
+    "javascript",
+    "vm",
+    "compiler",
+    "steganography",
+    "wechat-miniprogram"
+  ],
   "dependencies": {
     "@types/estree": "^0.0.51",
     "@types/lodash": "^4.14.182",
@@ -14,13 +31,20 @@
   },
   "scripts": {
     "build": "tsc",
-    "server": "static-server",
-    "generate": "node dist/index.js",
+    "server": "static-server ./assets/images -p 9080",
+    "generate": "node dist/src/index.js",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "clean": "rm -rf dist",
+    "prebuild": "npm run clean",
+    "lint": "eslint . --ext .ts",
+    "docs": "typedoc --out docs/api src"
   },
   "devDependencies": {
     "vitest": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }

@@ -6,11 +6,14 @@ import { chunk } from 'lodash';
 import { Compiler } from './compiler';
 import { GlobalScope, VirtualMachine } from './virtual-machine';
 
+// 获取项目根目录路径
+const rootDir = path.resolve(__dirname, '../../');
+
 async function __main__() {
 
   const compiler = new Compiler();
 
-  const testCode = fs.readFileSync(path.join(__dirname, '../test-code.js'), 'utf8');
+  const testCode = fs.readFileSync(path.join(rootDir, 'assets/examples/test-code.js'), 'utf8');
   compiler.compile(testCode);
 
   const codes = compiler.toNumberArray();
@@ -20,7 +23,7 @@ async function __main__() {
   // const vm = new VirtualMachine(globalScope, codes);
   // vm.run()
 
-  const image = await Jimp.read('./origin.jpg');
+  const image = await Jimp.read(path.join(rootDir, 'assets/images/origin.jpg'));
   const buffer = image.bitmap.data;
 
   const highBit = 0xFF;
@@ -37,9 +40,9 @@ async function __main__() {
     }
   }
 
-  await image.quality(100).writeAsync('./target.png');
+  await image.quality(100).writeAsync(path.join(rootDir, 'assets/images/target.png'));
 
-  const targetImage = await Jimp.read('./target.png');
+  const targetImage = await Jimp.read(path.join(rootDir, 'assets/images/target.png'));
   const targetBuffer = targetImage.bitmap.data;
   const targetCodes = [];
 
@@ -81,11 +84,11 @@ async function __main__() {
   //     buffer[offset + 2] = b || 0
   //   }
 
-  //   img.quality(100).quality(100).write('codes.png');
+  //   img.quality(100).quality(100).write(path.join(rootDir, 'assets/images/codes.png'));
   // })
 
   // const buffer = compiler.toArrayBuffer();
-  // fs.writeFileSync(path.join(__dirname, '../codes.bin'), new DataView(buffer));
+  // fs.writeFileSync(path.join(rootDir, 'assets/examples/codes.bin'), new DataView(buffer));
 }
 
 __main__()
