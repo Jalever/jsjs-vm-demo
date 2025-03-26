@@ -56,12 +56,21 @@ Page({
               vm.run()
             },
             fail: (res) => {
-              debugger;
+              console.error('图片数据获取失败', res);
+              page.setData({
+                motto: '图片数据获取失败，请检查服务器是否启动'
+              });
             }
           }, page);
         });
 
 
+      },
+      fail: (error) => {
+        console.error('下载图片失败', error);
+        page.setData({
+          motto: '下载图片失败，请检查网络连接和服务器状态'
+        });
       }
     })
   }
